@@ -1,4 +1,3 @@
-<!-- 冲突解决 -->
 <template>
     <div>
       <section class="back bg-gradient-to-b from-gray-200 to-blue-200">
@@ -9,25 +8,31 @@
       <div class="container">
         <h1 class="text-center mt-120 mb-50 font-bold text-gray-300">欢迎来到管理员页面！</h1>
         <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="goToOtherPage">进入</button>
-    </div>
+      </div>
     </div>
   </template>
   
   <script>
+  import { useRouter } from 'vue-router';
+  
   export default {
-    name: 'UserInfo',
+    name: 'Welcome',
+    setup() {
+      const router = useRouter();
+  
+      function goToOtherPage() {
+        sessionStorage.setItem('hasEntered', 'true');
+        router.push('/base');
+      }
+  
+      return {
+        goToOtherPage,
+      };
+    },
   };
-    import { useRouter } from 'vue-router';
-
-    const router = useRouter();
-
-    function goToOtherPage() {
-    router.push('/other');
-    }
   </script>
   
   <style scoped>
-  /* Scoped styles can still be used for specific customizations */
   .blur {
     filter: blur(150px);
   }

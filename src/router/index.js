@@ -1,19 +1,10 @@
-/*
- * @Description:
- * @Version: 1.0
- * @Autor: Li Cheng
- * @Date: 2024-06-25 14:15:23
- * @LastEditors: Li Cheng
- * @LastEditTime: 2024-06-25 16:26:35
- */
 import { createWebHistory, createRouter } from 'vue-router';
-
 import Base from '@/views/base.vue';
 import List from '@/views/list.vue';
 import Computed from '@/views/computeds.vue';
 import Hello from '@/views/HelloWorld.vue';
 import Form from '@/views/formModel.vue';
-// import Life from '@/views/life.vue';
+import Welcome from '@/views/welcome.vue';
 
 const routes = [
   {
@@ -21,17 +12,15 @@ const routes = [
     name: 'Welcome',
     component: Welcome,
   },
-  { path: '/other', redirect: '/base' },
-  { path: '/base', component: Base },
-  { path: '/list', component: List },
-  { path: '/computed', component: Computed },
-  { path: '/list', component: List },
-  { path: '/hello', component: Hello },
-  { path: '/form', component: Form },
-  { path: '/life', component: () => import('@/views/life.vue') },
+  { path: '/base', name: 'Base', component: Base },
+  { path: '/list', name: 'List', component: List },
+  { path: '/computed', name: 'Computed', component: Computed },
+  { path: '/hello', name: 'Hello', component: Hello },
+  { path: '/form', name: 'Form', component: Form },
+  { path: '/life', name: 'Life', component: () => import('@/views/life.vue') },
   {
     path: '/user/:id',
-    name: 'user',
+    name: 'User',
     meta: {
       title: '用户详情'
     },
@@ -39,10 +28,12 @@ const routes = [
   },
   {
     path: '/fa',
+    name: 'Fa',
     component: () => import('@/views/father.vue'),
     children: [
       {
         path: 'son',
+        name: 'Son',
         component: () => import('@/views/son.vue')
       }
     ]
@@ -52,6 +43,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const hasEntered = sessionStorage.getItem('hasEntered');
+  if (!hasEntered && to.name !== 'Welcome') {
+    next({ name: 'Welcome' });
+  } else {
+    next();
+  }
 });
 
 export default router;
