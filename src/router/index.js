@@ -16,7 +16,12 @@ import Form from '@/views/formModel.vue';
 // import Life from '@/views/life.vue';
 
 const routes = [
-  { path: '/', redirect: '/base' },
+  {
+    path: '/',
+    name: 'Welcome',
+    component: Welcome,
+  },
+  { path: '/other', redirect: '/base' },
   { path: '/base', component: Base },
   { path: '/list', component: List },
   { path: '/computed', component: Computed },
