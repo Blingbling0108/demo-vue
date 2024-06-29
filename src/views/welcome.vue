@@ -36,6 +36,6 @@
   .blur {
     filter: blur(150px);
   }
-  /* master分支编写冲突 */
+  /* 合并 main 分支到 master分支 冲突解决 */
   </style>
   
